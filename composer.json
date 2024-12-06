@@ -1,0 +1,18 @@
+{
+    "name": "codyalanstubbs/yamp",
+    "description": "Yet Another Mashed Potato",
+    "require": {
+        "phpunit/phpunit": "^11.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yamp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Cody Alan Stubbs",
+            "email": "codyalanstubbs@gmail.com"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yamp;
+namespace Yamp\Token;
 
 use Yamp\Enums\TokenType;
 

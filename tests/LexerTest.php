@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Yamp\Enums\TokenType;
-use Yamp\Lexer;
+use Yamp\Lexer\Lexer;
 
 #[UsesClass(Lexer::class)]
 #[CoversMethod(Lexer::class, '__construct')]

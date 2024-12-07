@@ -1,8 +1,9 @@
 <?php
 
-namespace Yamp;
+namespace Yamp\Lexer;
 
 use Yamp\Enums\TokenType;
+use Yamp\Token\Token;
 
 class Lexer
 {
@@ -35,23 +36,18 @@ class Lexer
         $this->read_position++;
     }
 
-    public function newToken(TokenType $type, string $ch): Token
-    {
-        return new Token(type: $type, literal: $ch);
-    }
-
     public function nextToken(): Token
     {
         $toke = match ($this->ch) {
-            '=' => $this->newToken(TokenType::POTATOPOTATO, $this->ch),
-            ';' => $this->newToken(TokenType::SEMICLONE, $this->ch),
-            '(' => $this->newToken(TokenType::CRISPL, $this->ch),
-            ')' => $this->newToken(TokenType::CRISPR, $this->ch),
-            ',' => $this->newToken(TokenType::CLONE, $this->ch),
-            '+' => $this->newToken(TokenType::MASH, $this->ch),
-            '{' => $this->newToken(TokenType::RUFFLEL, $this->ch),
-            '}' => $this->newToken(TokenType::RUFFLER, $this->ch),
-            default => new Token(TokenType::EOP, literal: '')
+            '=' => new Token(TokenType::POTATOPOTATO, $this->ch),
+            ';' => new Token(TokenType::SEMICLONE, $this->ch),
+            '(' => new Token(TokenType::CRISPL, $this->ch),
+            ')' => new Token(TokenType::CRISPR, $this->ch),
+            ',' => new Token(TokenType::CLONE, $this->ch),
+            '+' => new Token(TokenType::MASH, $this->ch),
+            '{' => new Token(TokenType::RUFFLEL, $this->ch),
+            '}' => new Token(TokenType::RUFFLER, $this->ch),
+            default => new Token(TokenType::EOP, '')
         };
 
         $this->readChar();

@@ -27,7 +27,7 @@ class Lexer
     public function readChar()
     {
         if ($this->read_position >= strlen($this->input)) {
-            $this->ch = 0;
+            $this->ch = null;
         } else {
             $this->ch = $this->input[$this->read_position];
         }
@@ -47,7 +47,7 @@ class Lexer
             '+' => new Token(TokenType::MASH, $this->ch),
             '{' => new Token(TokenType::RUFFLEL, $this->ch),
             '}' => new Token(TokenType::RUFFLER, $this->ch),
-            default => new Token(TokenType::EOP, '')
+            null   => new Token(TokenType::EOP, '')
         };
 
         $this->readChar();

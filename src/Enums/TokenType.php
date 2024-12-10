@@ -5,7 +5,7 @@ namespace Yamp\Enums;
 enum TokenType: string
 {
     case BADPOTATO  = "BADPOTATO";
-    case EOP        = "";
+    case EOP        = "EOP";
 
     // Identifiers + literals
     case GENE       = "GENE";   // add, foobar, x, y, ...

@@ -18,28 +18,37 @@ class LexerTest extends TestCase
     #[TestWith(name: 'basic test', data: [
         '=+(){},;',
         [
-            TokenType::POTATOPOTATO,
-            TokenType::MASH,
-            TokenType::CRISPL,
-            TokenType::CRISPR,
-            TokenType::RUFFLEL,
-            TokenType::RUFFLER,
-            TokenType::CLONE,
-            TokenType::SEMICLONE,
-            TokenType::EOP,
+            new LexerExpectation(TokenType::POTATOPOTATO, '='),
+            new LexerExpectation(TokenType::MASH, '+'),
+            new LexerExpectation(TokenType::CRISPL, '('),
+            new LexerExpectation(TokenType::CRISPR, ')'),
+            new LexerExpectation(TokenType::RUFFLEL, '{'),
+            new LexerExpectation(TokenType::RUFFLER, '}'),
+            new LexerExpectation(TokenType::CLONE, ','),
+            new LexerExpectation(TokenType::SEMICLONE, ';'),
+            new LexerExpectation(TokenType::EOP, ''),
         ]
     ])]
-    public function it_reads_next_token($input, $tests)
+    public function it_reads_next_token(string $input, array $tests)
     {
         $lexi = Lexer::new($input);
 
         array_map(
-            function ($test) use ($lexi) {
+            function (LexerExpectation $test) use ($lexi) {
                 $toke = $lexi->nextToken();
-                $this->assertEquals($toke->type, $test);
-                $this->assertEquals($toke->literal, $test->value);
+                $this->assertEquals($toke->type, $test->expected_type);
+                $this->assertEquals($toke->literal, $test->expected_literal);
             },
             $tests
         );
+    }
+}
+
+class LexerExpectation
+{
+    public function __construct(
+        public readonly TokenType $expected_type,
+        public readonly string $expected_literal,
+    ) {
     }
 }

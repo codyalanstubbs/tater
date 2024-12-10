@@ -15,21 +15,31 @@ use Yamp\Lexer\Lexer;
 class LexerTest extends TestCase
 {
     #[Test]
-    #[TestWith(name: 'assign',              data: ['=', TokenType::POTATOPOTATO])]
-    #[TestWith(name: 'plus',                data: ['+', TokenType::MASH])]
-    #[TestWith(name: 'parantheses-left',    data: ['(', TokenType::CRISPL])]
-    #[TestWith(name: 'parantheses-right',   data: [')', TokenType::CRISPR])]
-    #[TestWith(name: 'brace-left',          data: ['{', TokenType::RUFFLEL])]
-    #[TestWith(name: 'brace-right',         data: ['}', TokenType::RUFFLER])]
-    #[TestWith(name: 'comma',               data: [',', TokenType::CLONE])]
-    #[TestWith(name: 'semicolon',           data: [';', TokenType::SEMICLONE])]
-    #[TestWith(name: 'end of function',     data: ['',  TokenType::EOP])]
-    public function testNextToken($input, $token_enum)
+    #[TestWith(name: 'basic test', data: [
+        '=+(){},;',
+        [
+            TokenType::POTATOPOTATO,
+            TokenType::MASH,
+            TokenType::CRISPL,
+            TokenType::CRISPR,
+            TokenType::RUFFLEL,
+            TokenType::RUFFLER,
+            TokenType::CLONE,
+            TokenType::SEMICLONE,
+            TokenType::EOP,
+        ]
+    ])]
+    public function it_reads_next_token($input, $tests)
     {
         $lexi = Lexer::new($input);
-        $toke = $lexi->nextToken();
 
-        $this->assertEquals($toke->type, $token_enum);
-        $this->assertEquals($toke->literal, $token_enum->value);
+        array_map(
+            function ($test) use ($lexi) {
+                $toke = $lexi->nextToken();
+                $this->assertEquals($toke->type, $test);
+                $this->assertEquals($toke->literal, $test->value);
+            },
+            $tests
+        );
     }
 }

@@ -6,22 +6,46 @@ use Yamp\Enums\TokenType;
 
 class Token
 {
+    const ILLEGAL = "ILLEGAL";
+    const EOF     = "EOF";
+
+    // Identifiers + literals
+    const IDENT = "IDENT"; // add, foobar, x, y, ...
+    const INT   = "INT";   // 1343456
+
+    // Operators
+    const ASSIGN   = "=";
+    const PLUS     = "+";
+
+    // Delimiters
+    const COMMA     = ",";
+    const SEMICOLON = ";";
+
+    const LPAREN = "(";
+    const RPAREN = ")";
+    const LBRACE = "{";
+    const RBRACE = "}";
+
+    // Keywords
+    const FUNCTION = "FUNCTION";
+    const LET      = "LET";
+
     public function __construct(
-        public ?TokenType $type = null,
+        public ?string $type = null,
         public ?string $literal = null,
     ) {}
 
     private $keywords = [
-        'tater' => TokenType::FUNCTION,
-        'tt'    => TokenType::LET,
+        'tater' => Token::FUNCTION,
+        'tt'    => Token::LET,
     ];
 
-    public function lookupIdent(string $ident): TokenType
+    public function lookupIdent(string $ident): string
     {
         if (array_key_exists($ident, $this->keywords)) {
             return $this->keywords[$ident];
         }
-        return TokenType::IDENT;
+        return Token::IDENT;
     }
 }
 

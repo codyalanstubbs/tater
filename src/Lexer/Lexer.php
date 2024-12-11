@@ -2,7 +2,6 @@
 
 namespace Yamp\Lexer;
 
-use Yamp\Enums\TokenType;
 use Yamp\Token\Token;
 
 class Lexer
@@ -44,39 +43,39 @@ class Lexer
 
         switch ($this->ch) {
             case '=':
-                $toke->type = TokenType::ASSIGN;
+                $toke->type = Token::ASSIGN;
                 $toke->literal = $this->ch;
                 break;
             case ';':
-                $toke->type = TokenType::SEMICOLON;
+                $toke->type = Token::SEMICOLON;
                 $toke->literal = $this->ch;
                 break;
             case '(':
-                $toke->type = TokenType::LPAREN;
+                $toke->type = Token::LPAREN;
                 $toke->literal = $this->ch;
                 break;
             case ')':
-                $toke->type = TokenType::RPAREN;
+                $toke->type = Token::RPAREN;
                 $toke->literal = $this->ch;
                 break;
             case ',':
-                $toke->type = TokenType::COMMA;
+                $toke->type = Token::COMMA;
                 $toke->literal = $this->ch;
                 break;
             case '+':
-                $toke->type = TokenType::PLUS;
+                $toke->type = Token::PLUS;
                 $toke->literal = $this->ch;
                 break;
             case '{':
-                $toke->type = TokenType::LBRACE;
+                $toke->type = Token::LBRACE;
                 $toke->literal = $this->ch;
                 break;
             case '}':
-                $toke->type = TokenType::RBRACE;
+                $toke->type = Token::RBRACE;
                 $toke->literal = $this->ch;
                 break;
             case null:
-                $toke = new Token(TokenType::EOF, '');
+                $toke = new Token(Token::EOF, '');
                 break;
             default:
                 if (isLetter($this->ch)) {
@@ -84,11 +83,11 @@ class Lexer
                     $toke->type = $toke->lookupIdent($toke->literal);
                     return $toke;
                 } else if (isDigit($this->ch)) {
-                    $toke->type = TokenType::INT;
+                    $toke->type = Token::INT;
                     $toke->literal = $this->readNumber();
                     return $toke;
                 } else {
-                    $toke = new Token(TokenType::ILLEGAL, '');
+                    $toke = new Token(Token::ILLEGAL, '');
                 }
                 break;
         };

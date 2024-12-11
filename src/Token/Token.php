@@ -6,13 +6,22 @@ use Yamp\Enums\TokenType;
 
 class Token
 {
-    public TokenType $type;
-    public string $literal;
+    public function __construct(
+        public ?TokenType $type = null,
+        public ?string $literal = null,
+    ) {}
 
-    public function __construct(TokenType $type, string $literal)
+    private $keywords = [
+        'tater' => TokenType::FUNCTION,
+        'tt'    => TokenType::LET,
+    ];
+
+    public function lookupIdent(string $ident): TokenType
     {
-        $this->type = $type;
-        $this->literal = $literal;
+        if (array_key_exists($ident, $this->keywords)) {
+            return $this->keywords[$ident];
+        }
+        return TokenType::IDENT;
     }
 }
 

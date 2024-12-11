@@ -38,20 +38,101 @@ class Lexer
 
     public function nextToken(): Token
     {
-        $toke = match ($this->ch) {
-            '=' => new Token(TokenType::ASSIGN, $this->ch),
-            ';' => new Token(TokenType::SEMICOLON, $this->ch),
-            '(' => new Token(TokenType::LPAREN, $this->ch),
-            ')' => new Token(TokenType::RPAREN, $this->ch),
-            ',' => new Token(TokenType::COMMA, $this->ch),
-            '+' => new Token(TokenType::PLUS, $this->ch),
-            '{' => new Token(TokenType::LBRACE, $this->ch),
-            '}' => new Token(TokenType::RBRACE, $this->ch),
-            null   => new Token(TokenType::EOF, '')
+        $toke = new Token();
+
+        $this->skipWhitespace();
+
+        switch ($this->ch) {
+            case '=':
+                $toke->type = TokenType::ASSIGN;
+                $toke->literal = $this->ch;
+                break;
+            case ';':
+                $toke->type = TokenType::SEMICOLON;
+                $toke->literal = $this->ch;
+                break;
+            case '(':
+                $toke->type = TokenType::LPAREN;
+                $toke->literal = $this->ch;
+                break;
+            case ')':
+                $toke->type = TokenType::RPAREN;
+                $toke->literal = $this->ch;
+                break;
+            case ',':
+                $toke->type = TokenType::COMMA;
+                $toke->literal = $this->ch;
+                break;
+            case '+':
+                $toke->type = TokenType::PLUS;
+                $toke->literal = $this->ch;
+                break;
+            case '{':
+                $toke->type = TokenType::LBRACE;
+                $toke->literal = $this->ch;
+                break;
+            case '}':
+                $toke->type = TokenType::RBRACE;
+                $toke->literal = $this->ch;
+                break;
+            case null:
+                $toke = new Token(TokenType::EOF, '');
+                break;
+            default:
+                if (isLetter($this->ch)) {
+                    $toke->literal = $this->readIdentifier();
+                    $toke->type = $toke->lookupIdent($toke->literal);
+                    return $toke;
+                } else if (isDigit($this->ch)) {
+                    $toke->type = TokenType::INT;
+                    $toke->literal = $this->readNumber();
+                    return $toke;
+                } else {
+                    $toke = new Token(TokenType::ILLEGAL, '');
+                }
+                break;
         };
 
         $this->readChar();
         return $toke;
     }
 
+    private function readIdentifier(): string
+    {
+        $position = $this->position;
+        while (isLetter($this->ch)) {
+            $this->readChar();
+        }
+        $length = $this->position - $position;
+        $offset = $position++;
+        return substr($this->input, $offset, $length);
+    }
+
+    private function readNumber(): string
+    {
+        $position = $this->position;
+        while (isDigit($this->ch)) {
+            $this->readChar();
+        }
+        $length = $this->position - $position;
+        $offset = $position++;
+        return substr($this->input, $offset, $length);
+    }
+
+    private function skipWhitespace()
+    {
+        while (is_string($this->ch) && ctype_space($this->ch)) {
+            $this->readChar();
+        }
+    }
+}
+
+function isLetter(string $ch): bool
+{
+    return (bool) ('a' <= $ch && $ch <= 'z' || 'A' <= $ch && $ch <= 'Z' || $ch == '_');
+}
+
+function isDigit(string $ch): bool
+{
+    return '0' <= $ch && $ch <= '9';
 }

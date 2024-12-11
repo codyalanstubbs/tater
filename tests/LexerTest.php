@@ -18,15 +18,15 @@ class LexerTest extends TestCase
     #[TestWith(name: 'basic test', data: [
         '=+(){},;',
         [
-            new LexerExpectation(TokenType::POTATOPOTATO, '='),
-            new LexerExpectation(TokenType::MASH, '+'),
-            new LexerExpectation(TokenType::CRISPL, '('),
-            new LexerExpectation(TokenType::CRISPR, ')'),
-            new LexerExpectation(TokenType::RUFFLEL, '{'),
-            new LexerExpectation(TokenType::RUFFLER, '}'),
-            new LexerExpectation(TokenType::CLONE, ','),
-            new LexerExpectation(TokenType::SEMICLONE, ';'),
-            new LexerExpectation(TokenType::EOP, ''),
+            new LexerExpectation(TokenType::ASSIGN, '='),
+            new LexerExpectation(TokenType::PLUS, '+'),
+            new LexerExpectation(TokenType::LPAREN, '('),
+            new LexerExpectation(TokenType::RPAREN, ')'),
+            new LexerExpectation(TokenType::LBRACE, '{'),
+            new LexerExpectation(TokenType::RBRACE, '}'),
+            new LexerExpectation(TokenType::COMMA, ','),
+            new LexerExpectation(TokenType::SEMICOLON, ';'),
+            new LexerExpectation(TokenType::EOF, ''),
         ]
     ])]
     public function it_reads_next_token(string $input, array $tests)

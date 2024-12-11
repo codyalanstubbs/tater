@@ -4,28 +4,28 @@ namespace Yamp\Enums;
 
 enum TokenType: string
 {
-    case BADPOTATO  = "BADPOTATO";
-    case EOP        = "EOP";
+    case ILLEGAL = "ILLEGAL";
+    case EOF     = "EOF";
 
     // Identifiers + literals
-    case GENE       = "GENE";   // add, foobar, x, y, ...
-    case POTINT     = "POTINT"; // 1234455
+    case IDENT = "IDENT"; // add, foobar, x, y, ...
+    case INT   = "INT";   // 1343456
 
     // Operators
-    case POTATOPOTATO   = "=";
-    case MASH           = "+";
+    case ASSIGN   = "=";
+    case PLUS     = "+";
 
     // Delimiters
-    case CLONE      = ",";
-    case SEMICLONE  = ";";
+    case COMMA     = ",";
+    case SEMICOLON = ";";
 
-    case CRISPL     = "(";
-    case CRISPR     = ")";
-    case RUFFLEL    = "{";
-    case RUFFLER    = "}";
+    case LPAREN = "(";
+    case RPAREN = ")";
+    case LBRACE = "{";
+    case RBRACE = "}";
 
     // Keywords
-    case FUD = "FUD"; // FUNCTION
-    case BUD = "BUD"; // LET
+    case FUNCTION = "FUNCTION";
+    case LET      = "LET";
 }
 

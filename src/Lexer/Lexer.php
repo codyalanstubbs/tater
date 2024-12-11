@@ -39,15 +39,15 @@ class Lexer
     public function nextToken(): Token
     {
         $toke = match ($this->ch) {
-            '=' => new Token(TokenType::POTATOPOTATO, $this->ch),
-            ';' => new Token(TokenType::SEMICLONE, $this->ch),
-            '(' => new Token(TokenType::CRISPL, $this->ch),
-            ')' => new Token(TokenType::CRISPR, $this->ch),
-            ',' => new Token(TokenType::CLONE, $this->ch),
-            '+' => new Token(TokenType::MASH, $this->ch),
-            '{' => new Token(TokenType::RUFFLEL, $this->ch),
-            '}' => new Token(TokenType::RUFFLER, $this->ch),
-            null   => new Token(TokenType::EOP, '')
+            '=' => new Token(TokenType::ASSIGN, $this->ch),
+            ';' => new Token(TokenType::SEMICOLON, $this->ch),
+            '(' => new Token(TokenType::LPAREN, $this->ch),
+            ')' => new Token(TokenType::RPAREN, $this->ch),
+            ',' => new Token(TokenType::COMMA, $this->ch),
+            '+' => new Token(TokenType::PLUS, $this->ch),
+            '{' => new Token(TokenType::LBRACE, $this->ch),
+            '}' => new Token(TokenType::RBRACE, $this->ch),
+            null   => new Token(TokenType::EOF, '')
         };
 
         $this->readChar();

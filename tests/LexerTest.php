@@ -26,43 +26,43 @@ class LexerTest extends TestCase
         tt result = add(five, ten);
         ',
         [
-            new LexerExpectation(Token::LET, 'tt'),
-            new LexerExpectation(Token::IDENT, 'five'),
-            new LexerExpectation(Token::ASSIGN, '='),
-            new LexerExpectation(Token::INT, '5'),
-            new LexerExpectation(Token::SEMICOLON, ';'),
-            new LexerExpectation(Token::LET, 'tt'),
-            new LexerExpectation(Token::IDENT, 'ten'),
-            new LexerExpectation(Token::ASSIGN, '='),
-            new LexerExpectation(Token::INT, '10'),
-            new LexerExpectation(Token::SEMICOLON, ';'),
-            new LexerExpectation(Token::LET, 'tt'),
-            new LexerExpectation(Token::IDENT, 'add'),
-            new LexerExpectation(Token::ASSIGN, '='),
-            new LexerExpectation(Token::FUNCTION, 'tater'),
-            new LexerExpectation(Token::LPAREN, '('),
-            new LexerExpectation(Token::IDENT, 'x'),
-            new LexerExpectation(Token::COMMA, ','),
-            new LexerExpectation(Token::IDENT, 'y'),
-            new LexerExpectation(Token::RPAREN, ')'),
-            new LexerExpectation(Token::LBRACE, '{'),
-            new LexerExpectation(Token::IDENT, 'x'),
-            new LexerExpectation(Token::PLUS, '+'),
-            new LexerExpectation(Token::IDENT, 'y'),
-            new LexerExpectation(Token::SEMICOLON, ';'),
-            new LexerExpectation(Token::RBRACE, '}'),
-            new LexerExpectation(Token::SEMICOLON, ';'),
-            new LexerExpectation(Token::LET, 'tt'),
-            new LexerExpectation(Token::IDENT, 'result'),
-            new LexerExpectation(Token::ASSIGN, '='),
-            new LexerExpectation(Token::IDENT, 'add'),
-            new LexerExpectation(Token::LPAREN, '('),
-            new LexerExpectation(Token::IDENT, 'five'),
-            new LexerExpectation(Token::COMMA, ','),
-            new LexerExpectation(Token::IDENT, 'ten'),
-            new LexerExpectation(Token::RPAREN, ')'),
-            new LexerExpectation(Token::SEMICOLON, ';'),
-            new LexerExpectation(Token::EOF, ''),
+            new TstExp(Token::LET, 'tt'),
+            new TstExp(Token::IDENT, 'five'),
+            new TstExp(Token::ASSIGN, '='),
+            new TstExp(Token::INT, '5'),
+            new TstExp(Token::SEMICOLON, ';'),
+            new TstExp(Token::LET, 'tt'),
+            new TstExp(Token::IDENT, 'ten'),
+            new TstExp(Token::ASSIGN, '='),
+            new TstExp(Token::INT, '10'),
+            new TstExp(Token::SEMICOLON, ';'),
+            new TstExp(Token::LET, 'tt'),
+            new TstExp(Token::IDENT, 'add'),
+            new TstExp(Token::ASSIGN, '='),
+            new TstExp(Token::FUNCTION, 'tater'),
+            new TstExp(Token::LPAREN, '('),
+            new TstExp(Token::IDENT, 'x'),
+            new TstExp(Token::COMMA, ','),
+            new TstExp(Token::IDENT, 'y'),
+            new TstExp(Token::RPAREN, ')'),
+            new TstExp(Token::LBRACE, '{'),
+            new TstExp(Token::IDENT, 'x'),
+            new TstExp(Token::PLUS, '+'),
+            new TstExp(Token::IDENT, 'y'),
+            new TstExp(Token::SEMICOLON, ';'),
+            new TstExp(Token::RBRACE, '}'),
+            new TstExp(Token::SEMICOLON, ';'),
+            new TstExp(Token::LET, 'tt'),
+            new TstExp(Token::IDENT, 'result'),
+            new TstExp(Token::ASSIGN, '='),
+            new TstExp(Token::IDENT, 'add'),
+            new TstExp(Token::LPAREN, '('),
+            new TstExp(Token::IDENT, 'five'),
+            new TstExp(Token::COMMA, ','),
+            new TstExp(Token::IDENT, 'ten'),
+            new TstExp(Token::RPAREN, ')'),
+            new TstExp(Token::SEMICOLON, ';'),
+            new TstExp(Token::EOF, ''),
         ]
     ])]
     public function it_reads_next_token(string $input, array $tests)
@@ -70,7 +70,7 @@ class LexerTest extends TestCase
         $lexi = Lexer::new($input);
 
         array_map(
-            function (LexerExpectation $test) use ($lexi) {
+            function (TstExp $test) use ($lexi) {
                 $toke = $lexi->nextToken();
                 $this->assertEquals($toke->type, $test->expected_type);
                 $this->assertEquals($toke->literal, $test->expected_literal);
@@ -80,7 +80,10 @@ class LexerTest extends TestCase
     }
 }
 
-class LexerExpectation
+/**
+ * Test expectation for lexer testing
+*/
+class TstExp
 {
     public function __construct(
         public readonly string $expected_type,

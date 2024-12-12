@@ -72,8 +72,8 @@ class LexerTest extends TestCase
         array_map(
             function (LexerExpectation $test) use ($lexi) {
                 $toke = $lexi->nextToken();
-                $this->assertEquals($test->expected_type, $toke->type);
-                $this->assertEquals($test->expected_literal, $toke->literal);
+                $this->assertEquals($toke->type, $test->expected_type);
+                $this->assertEquals($toke->literal, $test->expected_literal);
             },
             $tests
         );
